@@ -15,13 +15,15 @@ function listString(pokemon){
 }
 
 function loadListOfCharacters(input){
+  let filteredPokemon = []
+
   return getPokemon().then(characters =>
     characters.forEach(character => {
-      if(character.name.includes.input){
-        console.log(character)
-        // getContainer().innerHTML += listString(character);
+      if(character.name.includes(input)=== true){
+        filteredPokemon.push(character);
       };
-  }));
+      getContainer().innerHTML = filteredPokemon.map(pokemon => listString(pokemon));
+  })).then(()=> attachEventListeners());
 }
 
 function getContainer(){
@@ -71,5 +73,5 @@ function searchEventListener(){
 
 
 document.addEventListener('DOMContentLoaded', function(){
-  searchEventListener().then(()=>attachEventListeners())
+  searchEventListener()
 });
