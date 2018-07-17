@@ -1,11 +1,3 @@
-
-const url = "http://localhost:3000/pokemons"
-
-function getPokemon(){
-  return fetch(url)
-  .then((response)=>response.json())
-}
-
 function listString(pokemon){
   return `<div class="pokemon-cards" id="${pokemon.order}-card">
   <h2>${pokemon.name}</h2>
@@ -15,16 +7,15 @@ function listString(pokemon){
   </div>`;
 }
 
-function loadListOfCharacters(input){
+function loadListOfCharacters(input, characters){
   let filteredPokemon = []
-
-  return getPokemon().then(characters =>
     characters.forEach(character => {
       if(character.name.includes(input)=== true){
         filteredPokemon.push(character);
       };
       getContainer().innerHTML = filteredPokemon.map(pokemon => listString(pokemon));
-  })).then(()=> attachEventListeners());
+  });
+  attachEventListeners();
 }
 
 function getContainer(){
@@ -65,14 +56,15 @@ function toggleLogic(pokemon, img){
   img.src === front ? img.setAttribute("src", back) : img.setAttribute("src", front);
 }
 
-function searchEventListener(){
+function searchEventListener(characters){
   const searchInput= document.getElementById("pokemon-search-input");
   searchInput.addEventListener('input', (e) => {
-    loadListOfCharacters(e.target.value.trim());
+    loadListOfCharacters(e.target.value.trim(), characters);
   })
 }
 
 
 document.addEventListener('DOMContentLoaded', function(){
-  searchEventListener()
+  let characters = data.pokemons
+  searchEventListener(characters)
 });
