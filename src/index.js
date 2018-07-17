@@ -10,8 +10,12 @@ function listString(pokemon){
 function loadListOfCharacters(input, characters){
   let filteredPokemon = []
     characters.forEach(character => {
-      if(character.name.includes(input)=== true){
-        filteredPokemon.push(character);
+    if(character.name.includes(input)=== true){
+       if(input === ""){
+         filteredPokemon = []
+       }else{
+         filteredPokemon.push(character);
+       }
       };
       getContainer().innerHTML = filteredPokemon.map(pokemon => listString(pokemon));
   });
