@@ -17,9 +17,10 @@ function loadListOfCharacters(input, characters){
          filteredPokemon.push(character);
        }
       };
-      getContainer().innerHTML = filteredPokemon.map(pokemon => listString(pokemon));
+
   });
-  attachEventListeners();
+  getContainer().innerHTML = filteredPokemon.map(pokemon => listString(pokemon));
+  attachEventListeners(characters);
 }
 
 function getContainer(){
@@ -30,28 +31,26 @@ function findFlipLink(){
   return  document.querySelectorAll(".flip")
 }
 
-function attachEventListeners(){
+function attachEventListeners(characters){
   findFlipLink().forEach(item => {
-    item.addEventListener('click', (e) => {findPokemonCardImage(item.dataset.id)})
+    item.addEventListener('click', (e) => {findPokemonCardImage(item.dataset.id, characters)})
   })
 }
 
-function findPokemonCardImage(id){
+function findPokemonCardImage(id, characters){
   const linkId= id;
   const imgId= id.replace(/-link/gi, '-img');
   const img = document.getElementById(`${imgId}`);
   const order =  id.replace(/-link/gi, '');
-  fetchPokemonByOrder(order, img)
+  fetchPokemonByOrder(order, img, characters)
 }
 
-function fetchPokemonByOrder(order,img){
-  return getPokemon().then(characters =>
+function fetchPokemonByOrder(order,img, characters){
     characters.forEach(character => {
       if(character.order == order){
         toggleLogic(character, img)
       }
       })
-    );
 }
 
 function toggleLogic(pokemon, img){
